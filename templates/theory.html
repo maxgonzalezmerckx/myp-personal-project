@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Theory — Volleyball Serve Physics{% endblock %}
+
+{% block content %}
+<section class="content-section">
+  <h1>Theory &amp; Equations</h1>
+  <p class="lead">
+    The trajectory of a served volleyball is governed by Newton's second law with gravity,
+    air drag, and (optionally) the Magnus force from spin.
+  </p>
+</section>
+
+<section class="content-section">
+  <h2>Projectile Motion (No Drag, No Spin)</h2>
+  <p>
+    With only gravity, initial speed \(v_0\) and launch angle \(\theta\):
+  </p>
+  <div class="equation-block">
+    \[
+      x(t) = v_0 \cos\theta \cdot t, \qquad
+      y(t) = h_0 + v_0 \sin\theta \cdot t - \tfrac{1}{2} g t^2
+    \]
+  </div>
+  <p>
+    Maximum height: \(h_{\max} = h_0 + \dfrac{v_0^2 \sin^2\theta}{2g}\).
+    Range on level ground: \(R = \dfrac{v_0^2 \sin 2\theta}{g}\) (when \(h_0 = 0\)).
+  </p>
+</section>
+
+<section class="content-section">
+  <h2>Air Drag</h2>
+  <p>
+    Real serves slow down because of quadratic drag. The drag force magnitude is:
+  </p>
+  <div class="equation-block">
+    \[
+      F_d = \tfrac{1}{2}\,\rho\, C_d\, A\, v^2
+    \]
+  </div>
+  <p>
+    where \(\rho \approx 1.225\,\text{kg/m}^3\) is air density,
+    \(C_d \approx 0.47\) is the drag coefficient for a sphere,
+    \(A = \pi r^2\) is the cross-sectional area, and \(v\) is speed.
+    The drag vector points opposite to the velocity.
+  </p>
+</section>
+
+<section class="content-section">
+  <h2>Magnus Effect (Spin)</h2>
+  <p>
+    When the ball spins, the Magnus force deflects its path. For spin angular velocity
+    \(\boldsymbol{\omega}\) and velocity \(\mathbf{v}\):
+  </p>
+  <div class="equation-block">
+    \[
+      \mathbf{F}_m \propto \boldsymbol{\omega} \times \mathbf{v}
+    \]
+  </div>
+  <p>
+    <strong>Topspin</strong> (positive spin in our simulator): the Magnus force adds a
+    downward component, so the ball drops faster after crossing the net — ideal for a jump serve.
+  </p>
+  <p>
+    <strong>Backspin</strong> (negative spin): the Magnus force partially counteracts gravity,
+    producing the "floating" effect of a float serve.
+  </p>
+</section>
+
+<section class="content-section">
+  <h2>Equation of Motion</h2>
+  <p>Combining all forces, the acceleration of the ball is:</p>
+  <div class="equation-block">
+    \[
+      \mathbf{a} = \frac{1}{m}\left(
+        \begin{bmatrix} 0 \\ -mg \end{bmatrix}
+        + \mathbf{F}_d
+        + \mathbf{F}_m
+      \right)
+    \]
+  </div>
+  <p>
+    This system is integrated numerically (4th-order Runge–Kutta) in
+    <code>physics/serve.py</code>. Edit the force functions there to refine the model.
+  </p>
+</section>
+
+<section class="content-section">
+  <h2>Court Constraints</h2>
+  <p>The simulator checks two key conditions:</p>
+  <ul class="feature-list">
+    <li><strong>Net clearance</strong> — ball height at \(x = 9\,\text{m}\) must exceed net height (2.43 m men / 2.24 m women)</li>
+    <li><strong>In bounds</strong> — landing point must be within the opponent half-court (9 m deep)</li>
+  </ul>
+  <a href="{{ url_for('simulator') }}" class="btn btn-primary">Open Simulator</a>
+</section>
+{% endblock %}
+
+{% block head_extra %}
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+{% endblock %}

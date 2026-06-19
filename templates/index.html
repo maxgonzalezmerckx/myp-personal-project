@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Intro — Volleyball Serve Physics{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>The Physics of a Volleyball Serve</h1>
+  <p class="lead">
+    Every powerful serve is a lesson in mechanics. Launch angle, speed, spin, and air resistance
+    all combine to determine whether the ball clears the net and drops into the opponent's court.
+  </p>
+  <a href="{{ url_for('simulator') }}" class="btn btn-primary">Try the Simulator</a>
+</section>
+
+<section class="content-section">
+  <h2>Forces on the Ball</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Gravity</h3>
+      <p>
+        Gravity pulls the ball downward with acceleration \(g \approx 9.81\,\text{m/s}^2\).
+        Without any other forces, the ball would follow a simple parabolic arc.
+      </p>
+    </div>
+    <div class="card">
+      <h3>Air Drag</h3>
+      <p>
+        As the ball moves through the air, drag opposes its motion. Drag grows with the
+        square of speed, which is why a harder serve loses energy faster than a soft float serve.
+      </p>
+    </div>
+    <div class="card">
+      <h3>Magnus Effect (Spin)</h3>
+      <p>
+        Spinning the ball creates a pressure difference. <strong>Topspin</strong> (jump serve)
+        makes the ball dive; <strong>backspin</strong> (float serve) keeps it aloft longer
+        and makes it harder to read.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <h2>Types of Serves</h2>
+  <div class="card-grid two-col">
+    <div class="card">
+      <h3>Float Serve</h3>
+      <p>
+        Minimal or no spin, moderate speed, and a flatter trajectory. Backspin (if any)
+        and turbulent airflow cause the ball to "knuckle" — changing direction unpredictably.
+      </p>
+    </div>
+    <div class="card">
+      <h3>Jump Serve (Topspin)</h3>
+      <p>
+        The server jumps and strikes the ball with strong topspin at high speed. Topspin
+        accelerates the ball downward after it crosses the net, making it difficult to pass.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <h2>What You Can Explore</h2>
+  <ul class="feature-list">
+    <li>Read the <a href="{{ url_for('theory') }}">theory page</a> for the governing equations</li>
+    <li>Use the <a href="{{ url_for('simulator') }}">simulator</a> to change speed, angle, spin, and release height</li>
+    <li>See whether your serve clears the net and lands in bounds</li>
+  </ul>
+</section>
+{% endblock %}
+
+{% block head_extra %}
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+{% endblock %}

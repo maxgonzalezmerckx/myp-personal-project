@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Simulator — Volleyball Serve Physics{% endblock %}
+
+{% block content %}
+<section class="content-section">
+  <h1>Trajectory Simulator</h1>
+  <p class="lead">
+    Adjust the serve parameters and watch the ball's path update in real time.
+    All physics is computed in Python on the server.
+  </p>
+</section>
+
+<div class="simulator-layout">
+  <aside class="controls-panel">
+    <h2>Serve Parameters</h2>
+
+    <div class="control-group">
+      <label for="speed">
+        Speed <span id="speed-val" class="control-value">25 m/s</span>
+      </label>
+      <input type="range" id="speed" min="5" max="50" step="0.5" value="25">
+    </div>
+
+    <div class="control-group">
+      <label for="angle">
+        Launch angle <span id="angle-val" class="control-value">15°</span>
+      </label>
+      <input type="range" id="angle" min="0" max="60" step="0.5" value="15">
+    </div>
+
+    <div class="control-group">
+      <label for="spin">
+        Spin <span id="spin-val" class="control-value">0 rpm</span>
+      </label>
+      <input type="range" id="spin" min="-300" max="300" step="5" value="0">
+      <p class="control-hint">Positive = topspin · Negative = backspin (float)</p>
+    </div>
+
+    <div class="control-group">
+      <label for="height">
+        Release height <span id="height-val" class="control-value">2.5 m</span>
+      </label>
+      <input type="range" id="height" min="1" max="4" step="0.05" value="2.5">
+    </div>
+
+    <div class="control-group">
+      <label for="net-type">Net height</label>
+      <select id="net-type">
+        <option value="men" selected>Men (2.43 m)</option>
+        <option value="women">Women (2.24 m)</option>
+      </select>
+    </div>
+
+    <fieldset class="control-group toggles">
+      <legend>Include forces</legend>
+      <label class="checkbox-label">
+        <input type="checkbox" id="include-drag" checked> Air drag
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="include-magnus" checked> Magnus (spin)
+      </label>
+    </fieldset>
+
+    <button id="simulate-btn" class="btn btn-primary btn-block">Simulate</button>
+  </aside>
+
+  <div class="chart-panel">
+    <div id="trajectory-chart"></div>
+    <div id="stats-panel" class="stats-panel">
+      <p class="stats-placeholder">Adjust parameters and click Simulate.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script src="{{ url_for('static', filename='js/simulator.js') }}"></script>
+{% endblock %}
