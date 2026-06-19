@@ -4,12 +4,20 @@
 
 {% block content %}
 <section class="hero">
-  <h1>The Physics of a Volleyball Serve</h1>
-  <p class="lead">
-    Every powerful serve is a lesson in mechanics. Launch angle, speed, spin, and air resistance
-    all combine to determine whether the ball clears the net and drops into the opponent's court.
-  </p>
-  <a href="{{ url_for('simulator') }}" class="btn btn-primary">Try the Simulator</a>
+  <div class="hero-content">
+    <h1>The Physics of a Volleyball Serve</h1>
+    <p class="lead">
+      Every powerful serve is a lesson in mechanics. Launch angle, speed, spin, and air resistance
+      all combine to determine whether the ball clears the net and drops into the opponent's court.
+    </p>
+    <a href="{{ url_for('simulator') }}" class="btn btn-primary">Try the Simulator</a>
+  </div>
+  <img
+    src="{{ url_for('static', filename='img/serve-silhouette.png') }}"
+    class="hero-silhouette"
+    alt=""
+    aria-hidden="true"
+  >
 </section>
 
 <section class="content-section">
